@@ -1,0 +1,5 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss";
+
+/* Content paths should be defined in tailwind.config.js */
+@import 'tw-animate-css';
