@@ -1,6 +1,6 @@
 import { DollarSign, Users, Briefcase, Target } from "lucide-react";
-import TopBar from "../../components/shared/TopBar";
-import StatCard from "../../components/shared/StatCard";
+import TopBar from "../commons/TopBar";
+import StatCard from "../commons/StatCard";
 import RevenueChart from "./components/RevenueChart";
 import PipelineChart from "./components/PipelineChart";
 import RecentDealsTable from "./components/RecentDealsTable";
