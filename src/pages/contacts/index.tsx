@@ -132,13 +132,12 @@ export default function Contacts() {
         )}
 
         <ContactsTable
-          contacts={contacts}
           filtered={filtered}
           selected={selected}
           sortBy={sortBy}
           sortAsc={sortAsc}
-          onToggleSort={toggleSort}
-          onToggleSelect={toggleSelect}
+          toggleSort={toggleSort}
+          toggleSelect={toggleSelect}
           onSelectAll={handleSelectAll}
           onDelete={handleDelete}
         />
@@ -147,7 +146,7 @@ export default function Contacts() {
       {showModal && (
         <ContactModal
           form={form}
-          onChange={setForm}
+          setForm={setForm}
           onSubmit={handleAdd}
           onClose={() => setShowModal(false)}
         />

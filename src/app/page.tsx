@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import type { AuthUser, View } from "../types";
-import Sidebar from "@/pages/commons/Sidebar";
-import AuthScreen from "../screens/AuthScreen";
-import Dashboard from "../screens/Dashboard";
-import Contacts from "../screens/Contacts";
-import Deals from "../screens/Deals";
-import Users from "../screens/Users";
-import Settings from "../screens/Settings";
+import { useState } from 'react';
+import type { AuthUser, View } from '../types';
+import Sidebar from '../shared/Sidebar/index';
+import AuthScreen from '../pages/auth/index';
+import Dashboard from '../pages/dashboard/index';
+import Contacts from '../pages/contacts/index';
+import Deals from '../pages/deals/index';
+import Users from '../pages/users/index';
+import Settings from '../pages/settings/index';
 
 export default function App() {
-  const [authView, setAuthView] = useState<"login" | "register">("login");
+  const [authView, setAuthView] = useState<'login' | 'register'>('login');
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [view, setView] = useState<View>("dashboard");
+  const [view, setView] = useState<View>('dashboard');
 
   if (!user) {
     return (
@@ -40,11 +40,11 @@ export default function App() {
         onLogout={() => setUser(null)}
       />
       <main className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        {view === "dashboard" && <Dashboard />}
-        {view === "contacts" && <Contacts />}
-        {view === "deals" && <Deals />}
-        {view === "users" && <Users />}
-        {view === "settings" && <Settings user={user} />}
+        {view === 'dashboard' && <Dashboard />}
+        {view === 'contacts' && <Contacts />}
+        {view === 'deals' && <Deals />}
+        {view === 'users' && <Users />}
+        {view === 'settings' && <Settings user={user} />}
       </main>
     </div>
   );

@@ -1,31 +1,31 @@
-import { useState } from "react";
-import { Search, Plus } from "lucide-react";
-import type { UserRecord } from "../../types";
-import { USERS } from "../../data/users";
-import TopBar from "../shared/TopBar";
-import UserStatsCards from "./components/UserStatsCards";
-import UsersTable from "./components/UsersTable";
-import UserModal from "./components/UserModal";
+import { useState } from 'react';
+import { Search, Plus } from 'lucide-react';
+import type { UserRecord } from '../../types';
+import { USERS } from '../../data/users';
+import TopBar from '@/shared/TopBar';
+import UserStatsCards from './components/UserStatsCards';
+import UsersTable from './components/UsersTable';
+import UserModal from './components/UserModal';
 
 type UserForm = {
   name: string;
   email: string;
-  role: UserRecord["role"];
+  role: UserRecord['role'];
   department: string;
-  status: UserRecord["status"];
+  status: UserRecord['status'];
 };
 
 export default function UsersView() {
   const [users, setUsers] = useState<UserRecord[]>(USERS);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState<UserRecord | null>(null);
   const [form, setForm] = useState<UserForm>({
-    name: "",
-    email: "",
-    role: "agent",
-    department: "",
-    status: "active",
+    name: '',
+    email: '',
+    role: 'agent',
+    department: '',
+    status: 'active',
   });
 
   const filtered = users.filter((u) => {
@@ -41,11 +41,11 @@ export default function UsersView() {
   const openAdd = () => {
     setEditUser(null);
     setForm({
-      name: "",
-      email: "",
-      role: "agent",
-      department: "",
-      status: "active",
+      name: '',
+      email: '',
+      role: 'agent',
+      department: '',
+      status: 'active',
     });
     setShowModal(true);
   };
@@ -66,7 +66,7 @@ export default function UsersView() {
     e.preventDefault();
     if (editUser) {
       setUsers((prev) =>
-        prev.map((u) => (u.id === editUser.id ? { ...u, ...form } : u)),
+        prev.map((u) => (u.id === editUser.id ? { ...u, ...form } : u))
       );
     } else {
       setUsers((prev) => [
@@ -87,9 +87,9 @@ export default function UsersView() {
     setUsers((prev) =>
       prev.map((u) =>
         u.id === id
-          ? { ...u, status: u.status === "active" ? "inactive" : "active" }
-          : u,
-      ),
+          ? { ...u, status: u.status === 'active' ? 'inactive' : 'active' }
+          : u
+      )
     );
   };
 
@@ -123,7 +123,7 @@ export default function UsersView() {
         </div>
 
         <UsersTable
-          users={filtered}
+          filtered={filtered}
           onEdit={openEdit}
           onToggleStatus={toggleStatus}
           onDelete={(id) => setUsers((prev) => prev.filter((u) => u.id !== id))}
@@ -133,8 +133,8 @@ export default function UsersView() {
       {showModal && (
         <UserModal
           form={form}
-          isEdit={!!editUser}
-          onChange={setForm}
+          editUser={editUser}
+          setForm={setForm}
           onSubmit={handleSave}
           onClose={() => setShowModal(false)}
         />

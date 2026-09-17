@@ -1,47 +1,68 @@
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import type { Deal } from "../../types";
-import { DEALS, STAGES } from "../../data/deals";
-import TopBar from "../../components/shared/TopBar";
-import KanbanColumn from "./components/KanbanColumn";
-import DealModal from "./components/DealModal";
+import { useState } from 'react';
+import { Plus } from 'lucide-react';
+import type { Deal } from '../../types';
+import { DEALS, STAGES } from '../../data/deals';
+import TopBar from '@/shared/TopBar';
+import KanbanColumn from './components/KanbanColumn';
+import DealModal from './components/DealModal';
 
 export default function Deals() {
   const [deals, setDeals] = useState<Deal[]>(DEALS);
   const [showModal, setShowModal] = useState(false);
   const [dragId, setDragId] = useState<string | null>(null);
   const [form, setForm] = useState({
-    title: "", contact: "", company: "", value: "",
-    stage: "prospecting" as Deal["stage"], closeDate: "",
+    title: '',
+    contact: '',
+    company: '',
+    value: '',
+    stage: 'prospecting' as Deal['stage'],
+    closeDate: '',
   });
 
-  const byStage = (stage: string) => deals.filter(d => d.stage === stage);
+  const byStage = (stage: string) => deals.filter((d) => d.stage === stage);
 
-  const handleDrop = (stage: Deal["stage"]) => {
+  const handleDrop = (stage: Deal['stage']) => {
     if (!dragId) return;
-    setDeals(prev => prev.map(d => d.id === dragId ? { ...d, stage } : d));
+    setDeals((prev) =>
+      prev.map((d) => (d.id === dragId ? { ...d, stage } : d))
+    );
     setDragId(null);
   };
 
   const handleDelete = (id: string) => {
-    setDeals(prev => prev.filter(d => d.id !== id));
+    setDeals((prev) => prev.filter((d) => d.id !== id));
   };
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
-    setDeals(prev => [{
-      id: `d${Date.now()}`,
-      title: form.title,
-      contact: form.contact,
-      company: form.company,
-      value: Number(form.value) || 0,
-      stage: form.stage,
-      probability: form.stage === "closed_won" ? 100 : form.stage === "closed_lost" ? 0 : 50,
-      closeDate: form.closeDate,
-      owner: "Admin Sistema",
-    }, ...prev]);
+    setDeals((prev) => [
+      {
+        id: `d${Date.now()}`,
+        title: form.title,
+        contact: form.contact,
+        company: form.company,
+        value: Number(form.value) || 0,
+        stage: form.stage,
+        probability:
+          form.stage === 'closed_won'
+            ? 100
+            : form.stage === 'closed_lost'
+              ? 0
+              : 50,
+        closeDate: form.closeDate,
+        owner: 'Admin Sistema',
+      },
+      ...prev,
+    ]);
     setShowModal(false);
-    setForm({ title: "", contact: "", company: "", value: "", stage: "prospecting", closeDate: "" });
+    setForm({
+      title: '',
+      contact: '',
+      company: '',
+      value: '',
+      stage: 'prospecting',
+      closeDate: '',
+    });
   };
 
   return (
@@ -59,7 +80,10 @@ export default function Deals() {
         }
       />
       <div className="flex-1 overflow-x-auto overflow-y-auto p-5">
-        <div className="flex gap-0 h-full min-w-max" style={{ minHeight: "calc(100vh - 130px)" }}>
+        <div
+          className="flex gap-0 h-full min-w-max"
+          style={{ minHeight: 'calc(100vh - 130px)' }}
+        >
           {STAGES.map((stage, idx) => (
             <KanbanColumn
               key={stage}
@@ -77,7 +101,7 @@ export default function Deals() {
       {showModal && (
         <DealModal
           form={form}
-          onChange={setForm}
+          setForm={setForm}
           onSubmit={handleAdd}
           onClose={() => setShowModal(false)}
         />
