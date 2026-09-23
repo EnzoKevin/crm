@@ -1,10 +1,17 @@
-export type View = "login" | "register" | "dashboard" | "contacts" | "deals" | "users" | "settings";
+export type View =
+  | 'login'
+  | 'register'
+  | 'dashboard'
+  | 'contacts'
+  | 'deals'
+  | 'users'
+  | 'settings';
 
 export interface AuthUser {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "manager" | "agent";
+  role: 'admin' | 'manager' | 'agent';
   avatar: string;
 }
 
@@ -14,7 +21,7 @@ export interface Contact {
   email: string;
   phone: string;
   company: string;
-  status: "lead" | "prospect" | "customer" | "inactive";
+  status: 'lead' | 'prospect' | 'customer' | 'inactive';
   value: number;
   lastContact: string;
   assignedTo: string;
@@ -26,7 +33,13 @@ export interface Deal {
   contact: string;
   company: string;
   value: number;
-  stage: "prospecting" | "qualification" | "proposal" | "negotiation" | "closed_won" | "closed_lost";
+  stage:
+    | 'prospecting'
+    | 'qualification'
+    | 'proposal'
+    | 'negotiation'
+    | 'closed_won'
+    | 'closed_lost';
   probability: number;
   closeDate: string;
   owner: string;
@@ -36,8 +49,8 @@ export interface UserRecord {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "manager" | "agent";
-  status: "active" | "inactive" | "pending";
+  role: 'admin' | 'manager' | 'agent';
+  status: 'active' | 'inactive' | 'pending';
   department: string;
   joinDate: string;
   dealsCount: number;

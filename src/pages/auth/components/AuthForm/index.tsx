@@ -8,6 +8,7 @@ import {
 
 import { Target, User, AtSign, Lock, AlertCircle } from 'lucide-react';
 import type { AuthUser } from '../../../../types';
+import { id } from 'date-fns/locale';
 
 interface AuthFormProps {
   view: 'login' | 'register';
@@ -93,7 +94,7 @@ export default function AuthForm({ view, setView, onLogin }: AuthFormProps) {
             nome: '',
             email: '',
             password: '',
-            admin: email === 'admin@crm.com' ? true : false,
+            admin: 'admin',
           }}
           validateOnMount={true}
           validationSchema={
@@ -101,6 +102,13 @@ export default function AuthForm({ view, setView, onLogin }: AuthFormProps) {
           }
           onSubmit={(values) => {
             console.log(values);
+            onLogin({
+              id: values.id,
+              name: values.nome,
+              email: values.email,
+              role: values.admin === 'admin' ? 'admin' : 'manager',
+              avatar: '',
+            });
           }}
         >
           {({ errors, touched, isValid, dirty }) => (
