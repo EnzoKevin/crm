@@ -3,9 +3,9 @@ import { AuthUser } from '../../types/index';
 
 function setCookie(name: string, value: string, days: number) {}
 
-const Login = async (user: AuthUser, cookies: any) => {
+const Login = async (user: AuthUser) => {
   try {
-    const response = await API.post('login', user, cookies);
+    const response = await API.post('login', user);
 
     if (response.status === 200 || response.status === 201) {
       const token = response.data.token;
@@ -36,3 +36,5 @@ const Register = async (user: AuthUser, cookies: any) => {
     return 'Cadastro falou devido ao erro: ' + error;
   }
 };
+
+export { Login, Register };

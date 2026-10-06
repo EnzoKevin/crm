@@ -11,8 +11,8 @@ export interface AuthUser {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'manager' | 'agent';
-  avatar: string;
+  role: string;
+  avatar?: string;
 }
 
 export interface Contact {

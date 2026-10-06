@@ -9,6 +9,7 @@ import {
 import { Target, User, AtSign, Lock, AlertCircle } from 'lucide-react';
 import type { AuthUser } from '../../../../types';
 import { id } from 'date-fns/locale';
+import { Login } from '@/API/Forms';
 
 interface AuthFormProps {
   view: 'login' | 'register';
@@ -91,10 +92,11 @@ export default function AuthForm({ view, setView, onLogin }: AuthFormProps) {
         <Formik
           initialValues={{
             id: '',
-            nome: '',
+            name: '',
             email: '',
             password: '',
-            admin: 'admin',
+            role: 'admin',
+            avatar: '',
           }}
           validateOnMount={true}
           validationSchema={
@@ -104,10 +106,15 @@ export default function AuthForm({ view, setView, onLogin }: AuthFormProps) {
             console.log(values);
             onLogin({
               id: values.id,
-              name: values.nome,
+              name: values.name,
               email: values.email,
-              role: values.admin === 'admin' ? 'admin' : 'manager',
+              role: values.role === 'admin' ? 'admin' : 'manager',
               avatar: '',
+            });
+            Login(values).then((res) => {
+              if (res !== 'Login successful') {
+                setError(res);
+              }
             });
           }}
         >
@@ -116,13 +123,13 @@ export default function AuthForm({ view, setView, onLogin }: AuthFormProps) {
               {view === 'register' && (
                 <div>
                   <label className="text-[#8A9BB5] text-xs font-medium uppercase tracking-wider block mb-2">
-                    Nome completo
+                    name completo
                   </label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7A94]" />
                     <Field
                       type="text"
-                      name="nome"
+                      name="name"
                       placeholder="Seu nome"
                       className="w-full border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder:text-[#4A5568] text-sm focus:outline-none focus:border-[#0EA47A] transition-colors"
                       style={{ background: 'rgba(255,255,255,0.06)' }}
